@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/HocMay_Python/TITANIC_APP/mlruns/914567354016764356/f1e6b1cb4f72445b97305a142b333c0a/artifacts
+end_time: 1739712805414
+entry_point_name: ''
+experiment_id: '914567354016764356'
+lifecycle_stage: active
+run_id: f1e6b1cb4f72445b97305a142b333c0a
+run_name: luxuriant-vole-211
+run_uuid: f1e6b1cb4f72445b97305a142b333c0a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739712799923
+status: 3
+tags: []
+user_id: HP

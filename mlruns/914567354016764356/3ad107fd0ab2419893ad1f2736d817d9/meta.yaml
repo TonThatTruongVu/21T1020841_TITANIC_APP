@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/HocMay_Python/TITANIC_APP/mlruns/914567354016764356/3ad107fd0ab2419893ad1f2736d817d9/artifacts
+end_time: 1739713214425
+entry_point_name: ''
+experiment_id: '914567354016764356'
+lifecycle_stage: active
+run_id: 3ad107fd0ab2419893ad1f2736d817d9
+run_name: enthused-shad-311
+run_uuid: 3ad107fd0ab2419893ad1f2736d817d9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739713208823
+status: 3
+tags: []
+user_id: HP
