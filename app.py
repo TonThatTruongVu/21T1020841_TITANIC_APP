@@ -1,15 +1,10 @@
 import streamlit as st
-import mlflow.pyfunc
+import pickle
 import pandas as pd
 
-# Đặt tracking URI của MLflow
-mlflow.set_tracking_uri("http://127.0.0.1:5000")
-
-# Định nghĩa đường dẫn đến mô hình đã log trên MLflow
-logged_model = "runs:/3ad107fd0ab2419893ad1f2736d817d9/random_forest_model"
-
-# Tải mô hình từ MLflow
-model = mlflow.pyfunc.load_model(logged_model)
+# Load model từ file .pkl
+with open("random_forest_model.pkl", "rb") as f:
+    model = pickle.load(f)
 
 # Giao diện Streamlit
 st.title("Titanic Survival Prediction")
