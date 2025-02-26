@@ -233,7 +233,7 @@ def xu_ly_gia_tri_thieu(df):
 
 import pandas as pd
 import streamlit as st
-
+from sklearn.preprocessing import LabelEncoder
 
 
 def chuyen_doi_kieu_du_lieu(df):
@@ -247,6 +247,18 @@ def chuyen_doi_kieu_du_lieu(df):
 
     selected_col = st.selectbox(" Chọn cột để chuyển đổi:", categorical_cols)
     unique_values = df[selected_col].unique()
+     # Kiểm tra nếu cột chứa dữ liệu như "C85", "B42" → Áp dụng Label Encoding
+    if all(any(char.isdigit() for char in str(val)) for val in unique_values):
+        st.info("🔄 Cột chứa dữ liệu dạng chữ + số → Áp dụng Label Encoding.")
+
+        # Áp dụng Label Encoding
+        label_encoder = LabelEncoder()
+        df[selected_col] = label_encoder.fit_transform(df[selected_col])
+
+        # Lưu vào session_state
+        st.session_state.df = df
+        st.success(f"✅ Đã mã hóa cột `{selected_col}` thành số duy nhất (Label Encoding).")
+        st.rerun()  
 
     # Khởi tạo session_state nếu chưa có
     if "text_inputs" not in st.session_state:
