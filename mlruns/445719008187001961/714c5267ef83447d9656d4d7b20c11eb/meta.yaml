@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/HocMay_Python/TITANIC_APP%20-%20LR/mlruns/445719008187001961/714c5267ef83447d9656d4d7b20c11eb/artifacts
+end_time: 1740587097530
+entry_point_name: ''
+experiment_id: '445719008187001961'
+lifecycle_stage: active
+run_id: 714c5267ef83447d9656d4d7b20c11eb
+run_name: gaudy-skink-849
+run_uuid: 714c5267ef83447d9656d4d7b20c11eb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740587097510
+status: 3
+tags: []
+user_id: HP

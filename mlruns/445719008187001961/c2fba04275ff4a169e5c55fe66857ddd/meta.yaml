@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/HocMay_Python/TITANIC_APP%20-%20LR/mlruns/445719008187001961/c2fba04275ff4a169e5c55fe66857ddd/artifacts
+end_time: 1740587079041
+entry_point_name: ''
+experiment_id: '445719008187001961'
+lifecycle_stage: active
+run_id: c2fba04275ff4a169e5c55fe66857ddd
+run_name: unequaled-loon-211
+run_uuid: c2fba04275ff4a169e5c55fe66857ddd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740587079024
+status: 3
+tags: []
+user_id: HP

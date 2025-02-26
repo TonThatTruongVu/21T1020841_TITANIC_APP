@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/HocMay_Python/TITANIC_APP%20-%20LR/mlruns/445719008187001961/e410e42ca8f44669be27cd2b9bff456f/artifacts
+end_time: 1740587314118
+entry_point_name: ''
+experiment_id: '445719008187001961'
+lifecycle_stage: active
+run_id: e410e42ca8f44669be27cd2b9bff456f
+run_name: vaunted-snipe-897
+run_uuid: e410e42ca8f44669be27cd2b9bff456f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740587314098
+status: 3
+tags: []
+user_id: HP

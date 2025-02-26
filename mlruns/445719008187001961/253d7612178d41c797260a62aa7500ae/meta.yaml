@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/HocMay_Python/TITANIC_APP%20-%20LR/mlruns/445719008187001961/253d7612178d41c797260a62aa7500ae/artifacts
+end_time: 1740586935057
+entry_point_name: ''
+experiment_id: '445719008187001961'
+lifecycle_stage: active
+run_id: 253d7612178d41c797260a62aa7500ae
+run_name: popular-kite-949
+run_uuid: 253d7612178d41c797260a62aa7500ae
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740586935041
+status: 3
+tags: []
+user_id: HP

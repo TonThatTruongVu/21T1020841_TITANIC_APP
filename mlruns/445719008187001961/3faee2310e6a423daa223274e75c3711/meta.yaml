@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/HocMay_Python/TITANIC_APP%20-%20LR/mlruns/445719008187001961/3faee2310e6a423daa223274e75c3711/artifacts
+end_time: 1740587315653
+entry_point_name: ''
+experiment_id: '445719008187001961'
+lifecycle_stage: active
+run_id: 3faee2310e6a423daa223274e75c3711
+run_name: capable-chimp-472
+run_uuid: 3faee2310e6a423daa223274e75c3711
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740587315637
+status: 3
+tags: []
+user_id: HP

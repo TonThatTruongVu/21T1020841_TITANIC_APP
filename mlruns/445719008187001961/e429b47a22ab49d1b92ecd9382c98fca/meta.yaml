@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/HocMay_Python/TITANIC_APP%20-%20LR/mlruns/445719008187001961/e429b47a22ab49d1b92ecd9382c98fca/artifacts
+end_time: 1740587098310
+entry_point_name: ''
+experiment_id: '445719008187001961'
+lifecycle_stage: active
+run_id: e429b47a22ab49d1b92ecd9382c98fca
+run_name: salty-steed-956
+run_uuid: e429b47a22ab49d1b92ecd9382c98fca
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740587098291
+status: 3
+tags: []
+user_id: HP

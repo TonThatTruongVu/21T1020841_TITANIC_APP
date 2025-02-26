@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/HocMay_Python/TITANIC_APP%20-%20LR/mlruns/445719008187001961/8b42645adcb248c19d6d32cca0b52be9/artifacts
+end_time: 1740587548341
+entry_point_name: ''
+experiment_id: '445719008187001961'
+lifecycle_stage: active
+run_id: 8b42645adcb248c19d6d32cca0b52be9
+run_name: entertaining-rat-315
+run_uuid: 8b42645adcb248c19d6d32cca0b52be9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740587548319
+status: 3
+tags: []
+user_id: HP

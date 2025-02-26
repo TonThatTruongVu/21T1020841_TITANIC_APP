@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/HocMay_Python/TITANIC_APP%20-%20LR/mlruns/445719008187001961/488a33201091438290eaebe658c8d242/artifacts
+end_time: 1740587554724
+entry_point_name: ''
+experiment_id: '445719008187001961'
+lifecycle_stage: active
+run_id: 488a33201091438290eaebe658c8d242
+run_name: stately-mink-116
+run_uuid: 488a33201091438290eaebe658c8d242
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740587554688
+status: 3
+tags: []
+user_id: HP
