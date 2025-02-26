@@ -88,7 +88,7 @@ def train_test_size():
         st.error("❌ Dữ liệu chưa được tải lên!")
         st.stop()
     
-    df = st.session_state.df  # Lấy dữ liệu từ session_state
+    df = st.session_state.df  # Lấy dữ liệu từ session_stat
     X, y = choose_label(df)
     
     st.subheader("📊 Chia dữ liệu Train - Validation - Test")   
@@ -99,7 +99,10 @@ def train_test_size():
 
     st.write(f"📌 **Tỷ lệ phân chia:** Test={test_size}%, Validation={val_size}%, Train={remaining_size - val_size}%")
 
+    
+
     if st.button("✅ Xác nhận Chia"):
+        # st.write("⏳ Đang chia dữ liệu...")
 
         stratify_option = y if y.nunique() > 1 else None
         X_train_full, X_test, y_train_full, y_test = train_test_split(
@@ -112,6 +115,10 @@ def train_test_size():
             stratify=stratify_option, random_state=42
         )
 
+        # st.write(f"📊 Kích thước tập Train: {X_train.shape[0]} mẫu")
+        # st.write(f"📊 Kích thước tập Validation: {X_val.shape[0]} mẫu")
+        # st.write(f"📊 Kích thước tập Test: {X_test.shape[0]} mẫu")
+
         # Lưu vào session_state
         st.session_state.X_train = X_train
         st.session_state.X_val = X_val  # ✅ Thêm X_val
@@ -119,29 +126,17 @@ def train_test_size():
         st.session_state.y_train = y_train
         st.session_state.y_val = y_val  # ✅ Thêm y_val
         st.session_state.y_test = y_test
-
+        st.session_state.y = y
+        st.session_state.X_train_shape = X_train.shape[0]
+        st.session_state.X_val_shape = X_val.shape[0]
+        st.session_state.X_test_shape = X_test.shape[0]
         summary_df = pd.DataFrame({
             "Tập dữ liệu": ["Train", "Validation", "Test"],
             "Số lượng mẫu": [X_train.shape[0], X_val.shape[0], X_test.shape[0]]
         })
         st.table(summary_df)
 
-        # ✅ Ghi log vào MLflow mà không bị lỗi quyền trên Streamlit Cloud
-        with mlflow.start_run():
-            mlflow.log_param("dataset_shape", df.shape)
-            mlflow.log_param("target_column", y.name)
-            mlflow.log_param("test_size", test_size)
-            mlflow.log_param("validation_size", val_size)
-            mlflow.log_param("train_size", remaining_size - val_size)
-
-            # Sử dụng bộ nhớ thay vì ghi file để tránh lỗi quyền truy cập
-            import io
-            buffer = io.StringIO()
-            df.to_csv(buffer, index=False)
-            mlflow.log_text(buffer.getvalue(), "dataset.csv")
-
-        st.success("✅ Dữ liệu đã được chia và log thành công vào MLflow!")
-
+        # **Log dữ liệu vào MLflow**
 
 
 
