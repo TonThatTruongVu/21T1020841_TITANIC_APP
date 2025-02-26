@@ -85,67 +85,39 @@ from sklearn.model_selection import train_test_split
 
 def train_test_size():
     if "df" not in st.session_state:
-        st.error("Dữ liệu chưa được tải lên!")
+        st.error("❌ Dữ liệu chưa được tải lên!")
         st.stop()
     
     df = st.session_state.df  # Lấy dữ liệu từ session_state
     X, y = choose_label(df)
-
-    # 🛠 Kiểm tra và xử lý NaN
-    if X.isnull().sum().sum() > 0 or y.isnull().sum() > 0:
-        st.error("⚠️ Dữ liệu chứa giá trị NaN. Hãy xử lý trước khi tiếp tục!")
-        st.stop()
-
-    # 🛠 Kiểm tra và loại bỏ lớp có ít hơn 2 mẫu
-    y_counts = y.value_counts()
-    valid_classes = y_counts[y_counts >= 2].index
-    X = X[y.isin(valid_classes)]
-    y = y[y.isin(valid_classes)]
-
-    # 🛠 Kiểm tra dữ liệu sau khi lọc
-    if X.shape[0] == 0:
-        st.error("❌ Không còn dữ liệu sau khi lọc các lớp không hợp lệ!")
-        st.stop()
-
-    st.subheader("Chia dữ liệu Train - Validation - Test")
-
-    test_size = st.slider("Chọn % dữ liệu Test", 10, 50, 20)
+    
+    st.subheader("📊 Chia dữ liệu Train - Validation - Test")   
+    
+    test_size = st.slider("📌 Chọn % dữ liệu Test", 10, 50, 20)
     remaining_size = 100 - test_size
-    val_size = st.slider("Chọn % dữ liệu Validation (trong phần Train)", 0, 50, 15)
+    val_size = st.slider("📌 Chọn % dữ liệu Validation (trong phần Train)", 0, 50, 15)
 
-    st.write(f"**Tỷ lệ phân chia:** Test={test_size}%, Validation={val_size}%, Train={remaining_size - val_size}%")
+    st.write(f"📌 **Tỷ lệ phân chia:** Test={test_size}%, Validation={val_size}%, Train={remaining_size - val_size}%")
 
-    if st.button("Xác nhận Chia"):
+    if st.button("✅ Xác nhận Chia"):
 
-        # 🛠 Kiểm tra số lượng mẫu trước khi chia
-        if X.shape[0] < 5:
-            st.error("❌ Dữ liệu quá ít, không thể chia tập Train/Test! Hãy kiểm tra lại dữ liệu.")
-            st.stop()
+        stratify_option = y if y.nunique() > 1 else None
+        X_train_full, X_test, y_train_full, y_test = train_test_split(
+            X, y, test_size=test_size/100, stratify=stratify_option, random_state=42
+        )
 
-        # 🛠 Điều chỉnh `stratify` nếu cần
-        stratify_option = y if y.nunique() > 1 and y.value_counts().min() >= 2 else None
-
-        try:
-            X_train_full, X_test, y_train_full, y_test = train_test_split(
-                X, y, test_size=test_size / 100, stratify=stratify_option, random_state=42
-            )
-
-            stratify_option = y_train_full if y_train_full.nunique() > 1 and y_train_full.value_counts().min() >= 2 else None
-            X_train, X_val, y_train, y_val = train_test_split(
-                X_train_full, y_train_full, test_size=val_size / (100 - test_size),
-                stratify=stratify_option, random_state=42
-            )
-
-        except ValueError as e:
-            st.error(f"❌ Lỗi khi chia dữ liệu: {e}")
-            st.stop()
+        stratify_option = y_train_full if y_train_full.nunique() > 1 else None
+        X_train, X_val, y_train, y_val = train_test_split(
+            X_train_full, y_train_full, test_size=val_size / (100 - test_size),
+            stratify=stratify_option, random_state=42
+        )
 
         # Lưu vào session_state
         st.session_state.X_train = X_train
-        st.session_state.X_val = X_val
+        st.session_state.X_val = X_val  # ✅ Thêm X_val
         st.session_state.X_test = X_test
         st.session_state.y_train = y_train
-        st.session_state.y_val = y_val
+        st.session_state.y_val = y_val  # ✅ Thêm y_val
         st.session_state.y_test = y_test
 
         summary_df = pd.DataFrame({
@@ -154,21 +126,22 @@ def train_test_size():
         })
         st.table(summary_df)
 
-        # 🛠 Log dữ liệu vào MLflow
-        mlflow.log_param("dataset_shape", df.shape)
-        mlflow.log_param("target_column", y.name)
-        mlflow.log_param("test_size", test_size)
-        mlflow.log_param("validation_size", val_size)
-        mlflow.log_param("train_size", remaining_size - val_size)
+        # ✅ Ghi log vào MLflow mà không bị lỗi quyền trên Streamlit Cloud
+        with mlflow.start_run():
+            mlflow.log_param("dataset_shape", df.shape)
+            mlflow.log_param("target_column", y.name)
+            mlflow.log_param("test_size", test_size)
+            mlflow.log_param("validation_size", val_size)
+            mlflow.log_param("train_size", remaining_size - val_size)
 
-        dataset_path = "dataset.csv"
-        df.to_csv(dataset_path, index=False)
+            # Sử dụng bộ nhớ thay vì ghi file để tránh lỗi quyền truy cập
+            import io
+            buffer = io.StringIO()
+            df.to_csv(buffer, index=False)
+            mlflow.log_text(buffer.getvalue(), "dataset.csv")
 
-        try:
-            mlflow.log_artifact(dataset_path)
-            st.success("✅ Dữ liệu đã được chia và log thành công vào MLflow!")
-        except PermissionError:
-            st.warning("⚠️ Không thể ghi log dữ liệu vào MLflow do lỗi quyền truy cập. Hãy kiểm tra lại quyền của thư mục lưu trữ.")
+        st.success("✅ Dữ liệu đã được chia và log thành công vào MLflow!")
+
 
 
 
@@ -741,9 +714,10 @@ def chon():
 def main():
 
 # Chọn tab bằng radio button
+    st.title("TITANIC APP LINEAR REGRESSION")
     option = st.radio("Chọn chức năng:", 
                   ["📘 Tiền xử lý dữ liệu", "⚙️ Huấn luyện", "🔢 Dự đoán",])
-
+    
 # Hiển thị nội dung tương ứng
     if option == "📘 Tiền xử lý dữ liệu":
         data()
