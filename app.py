@@ -30,8 +30,9 @@ def mlflow_input():
         st.session_state["mlflow_url"] = DAGSHUB_MLFLOW_URI
 
     # Thiết lập biến môi trường (NÊN sử dụng file .env thay vì hardcode)
+# Đặt thông tin xác thực
     os.environ["MLFLOW_TRACKING_USERNAME"] = "TonThatTruongVu"
-    os.environ["MLFLOW_TRACKING_PASSWORD"] = "aeb2dd8b26ef573bd0bc81a57d7cd8d55f87c3df"
+    os.environ["MLFLOW_TRACKING_PASSWORD"] = "519c4a864e131de52197f54d170c130beb15ffd5"
 
     # Đặt thí nghiệm (nếu chưa tồn tại, tự động tạo)
     experiment_name = "Linear_replication"
